@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"net/mail"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -303,6 +305,25 @@ func CheckUserExistOrDeleted(username string, email string) (bool, error) {
 
 func NormalizeEmail(email string) string {
 	return strings.ToLower(strings.TrimSpace(email))
+}
+
+var fondalightingRegistrationEmailPattern = regexp.MustCompile(`^[A-Za-z0-9]+\.[A-Za-z0-9]+@fondalighting\.com$`)
+
+// ValidateRegistrationEmail enforces the email format required for password
+// registration. The local part must contain exactly one dot and the domain is
+// fixed to fondalighting.com, for example: xx.xx@fondalighting.com.
+func ValidateRegistrationEmail(email string) error {
+	email = NormalizeEmail(email)
+	if email == "" {
+		return errors.New("registration email is required")
+	}
+	if _, err := mail.ParseAddress(email); err != nil {
+		return fmt.Errorf("invalid registration email: %w", err)
+	}
+	if !fondalightingRegistrationEmailPattern.MatchString(email) {
+		return errors.New("registration email must match xx.xx@fondalighting.com")
+	}
+	return nil
 }
 
 func emailQuery(tx *gorm.DB, email string) *gorm.DB {

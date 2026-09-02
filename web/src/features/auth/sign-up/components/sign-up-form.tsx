@@ -98,7 +98,7 @@ export function SignUpForm({
   })
 
   const emailValue = form.watch('email')
-  const emailVerificationRequired = !!status?.email_verification
+  const emailVerificationRequired = true
   const hasUserAgreement = Boolean(status?.user_agreement_enabled)
   const hasPrivacyPolicy = Boolean(status?.privacy_policy_enabled)
   const requiresLegalConsent = hasUserAgreement || hasPrivacyPolicy
@@ -163,8 +163,8 @@ export function SignUpForm({
       const res = await register({
         username: data.username,
         password: data.password,
-        email: data.email || undefined,
-        verification_code: verificationCode || undefined,
+        email: data.email,
+        verification_code: verificationCode,
         aff_code: getAffiliateCode(),
         turnstile: turnstileToken,
       })
@@ -304,12 +304,10 @@ export function SignUpForm({
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    {t('Email (required for verification)')}
-                  </FormLabel>
+                  <FormLabel>{t('Email')}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t('name@example.com')}
+                      placeholder='xx.xx@fondalighting.com'
                       type='email'
                       {...field}
                     />

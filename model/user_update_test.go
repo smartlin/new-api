@@ -12,6 +12,33 @@ import (
 	"gorm.io/gorm"
 )
 
+func TestValidateRegistrationEmail(t *testing.T) {
+	tests := []struct {
+		name  string
+		email string
+		valid bool
+	}{
+		{name: "valid email", email: "ab.cd@fondalighting.com", valid: true},
+		{name: "normalizes case and spaces", email: " AB.CD@FONDALIGHTING.COM ", valid: true},
+		{name: "wrong domain", email: "ab.cd@example.com", valid: false},
+		{name: "missing dot in local part", email: "abcd@fondalighting.com", valid: false},
+		{name: "extra dot in local part", email: "ab.cd.ef@fondalighting.com", valid: false},
+		{name: "special symbol in local part", email: "ab+tag.cd@fondalighting.com", valid: false},
+		{name: "missing email", email: "", valid: false},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := ValidateRegistrationEmail(tt.email)
+			if tt.valid {
+				require.NoError(t, err)
+			} else {
+				require.Error(t, err)
+			}
+		})
+	}
+}
+
 func setupUserUpdateTestState(t *testing.T) {
 	t.Helper()
 	truncateTables(t)
