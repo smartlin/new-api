@@ -66,7 +66,7 @@ const BRAND_AND_LITERAL_KEYS = new Set([
   'Mistral',
   'MokaAI',
   'Moonshot',
-  'New API',
+  'Fonda',
   'New API &lt;noreply@example.com&gt;',
   'NewAPI',
   'OAuth Client Secret',

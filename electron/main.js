@@ -25,7 +25,7 @@ function saveAndOpenErrorLog() {
     }
     
     // 写入日志
-    const logContent = `New API 崩溃日志
+    const logContent = `Fonda 崩溃日志
 生成时间: ${new Date().toLocaleString('zh-CN')}
 平台: ${process.platform}
 架构: ${process.arch}
