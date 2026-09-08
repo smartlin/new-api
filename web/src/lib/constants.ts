@@ -23,6 +23,7 @@ For commercial licensing, please contact support@quantumnous.com
 // System Configuration Defaults
 export const DEFAULT_SYSTEM_NAME = 'Fonda'
 export const DEFAULT_LOGO = '/logo.png'
+export const DEFAULT_LOGO_ICON = '/logo-icon.png'
 
 // LocalStorage Keys
 export const STORAGE_KEYS = {

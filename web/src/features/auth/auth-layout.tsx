@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { useSystemConfig } from '@/hooks/use-system-config'
+import { DEFAULT_LOGO, DEFAULT_LOGO_ICON } from '@/lib/constants'
 
 type AuthLayoutProps = {
   children: React.ReactNode
@@ -29,6 +30,7 @@ type AuthLayoutProps = {
 export function AuthLayout({ children }: AuthLayoutProps) {
   const { t } = useTranslation()
   const { systemName, logo, loading } = useSystemConfig()
+  const displayLogo = logo === DEFAULT_LOGO ? DEFAULT_LOGO_ICON : logo
 
   return (
     <div className='relative grid h-svh max-w-none'>
@@ -41,17 +43,15 @@ export function AuthLayout({ children }: AuthLayoutProps) {
             <Skeleton className='absolute inset-0 rounded-full' />
           ) : (
             <img
-              src={logo}
+              src={displayLogo}
               alt={t('Logo')}
-              className='h-8 w-8 rounded-full object-cover'
+              className='h-8 w-8 rounded-full object-contain'
             />
           )}
         </div>
-        {loading ? (
-          <Skeleton className='h-6 w-24' />
-        ) : (
-          <h1 className='text-xl font-medium'>{systemName}</h1>
-        )}
+        <span className='sr-only'>
+          {loading ? t('Loading...') : systemName}
+        </span>
       </Link>
       <div className='container flex items-center pt-16 sm:pt-0'>
         <div className='mx-auto flex w-full flex-col justify-center space-y-2 px-4 py-8 sm:w-[480px] sm:p-8'>

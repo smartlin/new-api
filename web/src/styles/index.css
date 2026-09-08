@@ -464,6 +464,183 @@ For commercial licensing, please contact support@quantumnous.com
   }
 }
 
+.fonda-wordmark-letter,
+.fonda-wordmark-space {
+  display: inline-block;
+}
+
+.fonda-wordmark-letter {
+  transform: translateY(0);
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .fonda-wordmark-letter:hover {
+    transform: translateY(-0.14em);
+  }
+}
+
+.fonda-code-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: oklch(0.32 0.035 245 / 42%);
+}
+
+.fonda-code-field__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.8;
+  background-size: 42px 42px;
+  background-image:
+    linear-gradient(oklch(0.35 0.03 245 / 7%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.35 0.03 245 / 7%) 1px, transparent 1px);
+}
+
+.fonda-code-field__streams {
+  position: absolute;
+  inset: -22% 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 4vw, 5rem);
+  padding: 0 clamp(1.5rem, 7vw, 9rem);
+  transform: rotate(-7deg) scale(1.12);
+}
+
+.fonda-code-stream {
+  overflow: hidden;
+  height: 140%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: clamp(0.56rem, 0.75vw, 0.75rem);
+  line-height: 2.6;
+  white-space: nowrap;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 18%,
+    black 82%,
+    transparent
+  );
+}
+
+.fonda-code-stream__track {
+  display: flex;
+  flex-direction: column;
+  animation: fonda-code-rise var(--fonda-stream-duration) linear infinite;
+  animation-delay: var(--fonda-stream-delay);
+  will-change: transform;
+}
+
+.fonda-code-stream__track span {
+  display: block;
+  min-height: 2.6em;
+}
+
+.fonda-code-stream--1,
+.fonda-code-stream--4 {
+  color: oklch(0.48 0.12 242 / 38%);
+}
+
+.fonda-code-stream--2 {
+  color: oklch(0.48 0.13 45 / 42%);
+}
+
+.fonda-code-stream--3 {
+  color: oklch(0.34 0.035 245 / 38%);
+}
+
+.fonda-code-field__glow {
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 999px;
+  filter: blur(90px);
+  opacity: 0.28;
+}
+
+.fonda-code-field__glow--blue {
+  top: 14%;
+  right: 7%;
+  background: oklch(0.62 0.14 242);
+}
+
+.fonda-code-field__glow--orange {
+  bottom: -18%;
+  left: 12%;
+  background: oklch(0.68 0.16 45);
+}
+
+.fonda-code-field__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: oklch(0.96 0.01 120 / 32%);
+}
+
+.dark .fonda-code-field {
+  color: oklch(0.34 0.035 245 / 30%);
+}
+
+.dark .fonda-code-field__grid {
+  opacity: 0.45;
+  background-image:
+    linear-gradient(oklch(0.9 0.02 245 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.9 0.02 245 / 5%) 1px, transparent 1px);
+}
+
+.dark .fonda-code-field__veil {
+  background: oklch(0.14 0.02 245 / 46%);
+}
+
+.dark .fonda-code-stream--1,
+.dark .fonda-code-stream--4 {
+  color: oklch(0.76 0.12 242 / 43%);
+}
+
+.dark .fonda-code-stream--2 {
+  color: oklch(0.78 0.13 45 / 45%);
+}
+
+@keyframes fonda-code-rise {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 767px) {
+  .fonda-code-field__streams {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+    transform: rotate(-7deg) scale(1.3);
+  }
+
+  .fonda-code-stream--4 {
+    display: none;
+  }
+
+  .fonda-code-field__glow {
+    width: 20rem;
+    height: 20rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fonda-wordmark-letter {
+    transition: none;
+  }
+
+  .fonda-code-stream__track {
+    animation: none;
+    transform: translateY(-18%);
+  }
+}
+
 /* ── Landing page scroll-triggered animations ── */
 @keyframes landing-fade-up {
   from {

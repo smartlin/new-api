@@ -193,11 +193,12 @@ export function PublicHeader(props: PublicHeaderProps) {
             {/* Logo */}
             <Link
               to={homeUrl}
-              className='group flex shrink-0 items-center gap-2.5'
+              aria-label={`${displaySiteName} ${t('Go to home')}`}
+              className='group flex shrink-0 items-center'
             >
-              <div className='flex size-7 shrink-0 items-center justify-center transition-all duration-300 group-hover:scale-105'>
+              <div className='flex h-10 w-[10.75rem] shrink-0 items-center justify-start transition-transform duration-300 group-hover:scale-[1.02]'>
                 {loading ? (
-                  <Skeleton className='size-full rounded-lg' />
+                  <Skeleton className='h-8 w-full rounded-md' />
                 ) : customLogo ? (
                   customLogo
                 ) : (
@@ -205,12 +206,12 @@ export function PublicHeader(props: PublicHeaderProps) {
                     src={systemLogo}
                     loading={loading}
                     logoLoaded={logoLoaded}
-                    className='size-full rounded-lg object-contain'
+                    className='h-auto max-h-10 w-full rounded-none object-contain object-left'
                   />
                 )}
               </div>
-              <span className='text-sm font-semibold tracking-tight'>
-                {loading ? <Skeleton className='h-4 w-16' /> : displaySiteName}
+              <span className='sr-only'>
+                {loading ? t('Loading...') : displaySiteName}
               </span>
             </Link>
 
